@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulador de Consumo de Energia</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Simulador de Consumo de Energia</h1>
+    <form id="simulatorForm">
+      <label for="room">Selecione o cômodo:</label>
+      <select id="room" required>
+        <option value="">-- Escolha um cômodo --</option>
+        <option value="Sala">Sala</option>
+        <option value="Cozinha">Cozinha</option>
+        <option value="Quarto">Quarto</option>
+        <option value="Banheiro">Banheiro</option>
+        <option value="Escritório">Escritório</option>
+      </select>
+
+      <label for="appliance">Selecione o aparelho:</label>
+      <select id="appliance" required>
+        <option value="">-- Escolha um aparelho --</option>
+        <option value="Lâmpada LED">Lâmpada LED</option>
+        <option value="Televisão">Televisão</option>
+        <option value="Geladeira">Geladeira</option>
+        <option value="Ar-condicionado">Ar-condicionado</option>
+        <option value="Computador">Computador</option>
+        <option value="Micro-ondas">Micro-ondas</option>
+        <option value="Chuveiro elétrico">Chuveiro elétrico</option>
+      </select>
+
+      <label for="power">Potência do aparelho (Watts):</label>
+      <input type="number" id="power" min="1" step="1" required placeholder="Ex: 1000" />
+
+      <label for="hours">Tempo de uso diário (horas):</label>
+      <input type="number" id="hours" min="0" max="24" step="0.1" required placeholder="Ex: 3.5" />
+
+      <button type="submit">Calcular Consumo Mensal</button>
+    </form>
+
+    <div class="result" id="result" style="display:none;"></div>
+
+    <p><a href="extended.html">Ir para Calculadora Estendida →</a></p>
+
+    <div class="tip">
+      Dica: Equipamentos com selo de eficiência energética consomem menos energia e ajudam a economizar na conta de luz.
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
