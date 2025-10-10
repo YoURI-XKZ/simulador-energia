@@ -8,29 +8,34 @@
 </head>
 <body>
   <div class="container">
-    <h1>Calculadora de Consumo de Energia</h1>
+    <h1>Calculadora Estendida de Consumo de Energia</h1>
+    <form id="formCalculadora">
+      <label for="nomeAparelho">Nome do aparelho:</label>
+      <input type="text" id="nomeAparelho" required placeholder="Digite o nome do aparelho" />
+
+      <label for="potencia">Potência do aparelho (Watts):</label>
+      <input type="number" id="potencia" min="1" step="1" required placeholder="Ex: 1000" />
+
+      <label for="horas">Tempo de uso diário (horas):</label>
+      <input type="number" id="horas" min="0" max="24" step="0.1" required placeholder="Ex: 3.5" />
+
+      <label for="tarifa">Tarifa de energia (R$ por kWh):</label>
+      <input type="number" id="tarifa" min="0" step="0.001" required placeholder="Ex: 0.70" />
+
+      <button type="submit">Calcular Consumo e Custo</button>
+    </form>
+
+    <div class="resultado" id="resultado" style="display:none;"></div>
+
+    <div class="dicas" id="dicas"></div>
 
     <p><a href="index.html">← Voltar ao Simulador Básico</a></p>
 
-    <form id="energyForm">
-      <label for="appliance">Aparelho:</label>
-      <input type="text" id="appliance" name="appliance" required />
-
-      <label for="wattage">Consumo (Watts):</label>
-      <input type="number" id="wattage" name="wattage" min="0" step="any" required />
-
-      <label for="hours">Horas de Uso por Dia:</label>
-      <input type="number" id="hours" name="hours" min="0" step="any" required />
-
-      <label for="price">Preço da Energia (R$ por kWh):</label>
-      <input type="number" id="price" name="price" min="0" step="any" required />
-
-      <button type="submit">Calcular</button>
-    </form>
-
-    <div class="result" id="result"></div>
+    <div class="dica-geral">
+      Dica: Acompanhe seu consumo e ajuste os horários de uso para economizar na conta de energia.
+    </div>
   </div>
 
-  <script src="extended-script.js"></script>
+  <script src="script_calculadora.js"></script>
 </body>
 </html>

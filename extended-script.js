@@ -1,39 +1,63 @@
-const form = document.getElementById('energyForm');
-const resultDiv = document.getElementById('result');
+const formCalculadora = document.getElementById('formCalculadora');
+const divResultado = document.getElementById('resultado');
+const divDicas = document.getElementById('dicas');
 
-function calculateCost(wattage, hours, pricePerKwh) {
-  const dailyConsumptionWh = wattage * hours;
-  const monthlyConsumptionKWh = (dailyConsumptionWh * 30) / 1000;
-  const cost = monthlyConsumptionKWh * pricePerKwh;
-  return {
-    consumption: monthlyConsumptionKWh.toFixed(2),
-    cost: cost.toFixed(2),
-  };
+function calcularConsumo(potenciaWatts, horasDiarias) {
+  const consumoDiarioWh = potenciaWatts * horasDiarias;
+  const consumoMensalWh = consumoDiarioWh * 30;
+  return +(consumoMensalWh / 1000).toFixed(2);
 }
 
-form.addEventListener('submit', function(e) {
+function calcularCusto(consumoKwh, tarifa) {
+  return +(consumoKwh * tarifa).toFixed(2);
+}
+
+function gerarDicas(nomeAparelho, potencia, horas) {
+  const listaDicas = [];
+
+  if (nomeAparelho.toLowerCase().includes('ar-condicionado') && horas > 1) {
+    listaDicas.push(`Reduzir o uso do ar-condicionado em 30 minutos pode economizar até ${(potencia * 0.5 * 30 / 60 * 30 / 1000 * 0.7).toFixed(2)} kWh por mês.`);
+  }
+
+  if (potencia > 1000) {
+    listaDicas.push("Equipamentos com potência alta consomem muito, considere reduzir o tempo de uso.");
+  }
+
+  if (listaDicas.length === 0) {
+    listaDicas.push("Use a calculadora regularmente para monitorar seu consumo e identificar oportunidades de economia.");
+  }
+
+  divDicas.innerHTML = '<h3>Dicas Personalizadas</h3><ul>' + listaDicas.map(dica => `<li>${dica}</li>`).join('') + '</ul>';
+}
+
+formCalculadora.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const appliance = document.getElementById('appliance').value;
-  const wattage = parseFloat(document.getElementById('wattage').value);
-  const hours = parseFloat(document.getElementById('hours').value);
-  const price = parseFloat(document.getElementById('price').value);
+  const nomeAparelho = document.getElementById('nomeAparelho').value.trim();
+  const potencia = parseInt(document.getElementById('potencia').value);
+  const horas = parseFloat(document.getElementById('horas').value);
+  const tarifa = parseFloat(document.getElementById('tarifa').value);
 
-  if (!appliance || !wattage || !hours || !price) {
+  if (!nomeAparelho || !potencia || !horas || !tarifa) {
     alert('Por favor, preencha todos os campos corretamente.');
     return;
   }
-
-  if (hours < 0 || hours > 24) {
+  if (horas < 0 || horas > 24) {
     alert('Informe um tempo de uso diário válido entre 0 e 24 horas.');
     return;
   }
+  if (tarifa < 0) {
+    alert('Informe uma tarifa válida (maior ou igual a zero).');
+    return;
+  }
 
-  const { consumption, cost } = calculateCost(wattage, hours, price);
+  const consumo = calcularConsumo(potencia, horas);
+  const custo = calcularCusto(consumo, tarifa);
 
-  resultDiv.style.display = 'block';
-  resultDiv.innerHTML = `
-    O consumo mensal estimado do aparelho <strong>${appliance}</strong> é de <strong>${consumption} kWh</strong>.<br/>
-    O custo mensal estimado da energia é <strong>R$ ${cost}</strong>.
-  `;
+  divResultado.style.display = 'block';
+  divResultado.innerHTML = `O consumo mensal estimado do aparelho <strong>${nomeAparelho}</strong> é de <strong>${consumo} kWh</strong> e o custo será aproximadamente <strong>R$ ${custo.toFixed(2)}</strong>.`;
+
+  gerarDicas(nomeAparelho, potencia, horas);
+
+  formCalculadora.reset();
 });
