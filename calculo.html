@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simulador de Consumo de Energia</title>
+  <title>Calculadora Estendida de Consumo de Energia</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Simulador de Consumo de Energia</h1>
-    <form id="formSimulador">
+    <h1>Calculadora Estendida de Consumo de Energia</h1>
+    <form id="formCalculadora">
       <label for="nomeAparelho">Nome do aparelho:</label>
       <input type="text" id="nomeAparelho" required placeholder="Digite o nome do aparelho" />
 
@@ -20,26 +20,23 @@
       <label for="horas">Tempo de uso diário (horas):</label>
       <input type="number" id="horas" min="0" max="24" step="0.1" required placeholder="Ex: 3.5" />
 
-      <button type="submit">Calcular Consumo Mensal</button>
+      <label for="tarifa">Tarifa de energia (R$ por kWh):</label>
+      <input type="number" id="tarifa" min="0" step="0.001" required placeholder="Ex: 0.70" />
+
+      <button type="submit">Calcular Consumo e Custo</button>
     </form>
 
     <div class="resultado" id="resultado" style="display:none;"></div>
 
-    <h2>Distribuição dos Gastos</h2>
-    <canvas id="graficoPizza" width="400" height="300"></canvas>
-
-    <h2>Histórico de Consumo (Exemplo)</h2>
-    <canvas id="graficoLinha" width="600" height="300"></canvas>
-
     <div class="dicas" id="dicas"></div>
 
-    <p><a href="calculo.html">Ir para Calculadora Estendida →</a></p>
+    <p><a href="index.html">← Voltar ao Simulador Básico</a></p>
 
     <div class="dica-geral">
-      Dica: Equipamentos com selo de eficiência energética consomem menos energia e ajudam a economizar na conta de luz.
+      Dica: Acompanhe seu consumo e ajuste os horários de uso para economizar na conta de energia.
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="calculo.js"></script>
 </body>
 </html>
